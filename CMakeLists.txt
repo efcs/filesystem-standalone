@@ -21,7 +21,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${CMAKE_CURRENT_LIST_DIR})
 include_directories(libs/elib)
 
-add_definitions(-DELIB_FILESYSTEM_UNIT_TEST_PATH="${CMAKE_CURRENT_LIST_DIR}/unit_tests")
+add_definitions(-DELIB_FILESYSTEM_V2_UNIT_TEST_PATH="${CMAKE_CURRENT_LIST_DIR}/unit_tests")
 
 add_library(ObjLib OBJECT 
                     src/filesystem/v2/directory_iterator.cpp
