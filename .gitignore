@@ -30,4 +30,4 @@ CMakeCache.txt
 cmake_install.cmake
 
 # Test file
-test_any
+test_filesystem
