@@ -19,3 +19,15 @@
 *.exe
 *.out
 *.app
+
+# Kate and Gedit temps
+*.kate-swp
+*~
+
+# Cmake files
+/CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
+
+# Test file
+test_any
