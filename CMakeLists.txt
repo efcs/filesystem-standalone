@@ -11,14 +11,29 @@ else()
     message( WARNING "Compiler not supported! (${CMAKE_CXX_COMPILER_ID})" )
 endif()
 
-set(Boost_USE_STATIC_LIBS ON)
+set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+
+
 include_directories(${Boost_INCLUDE_DIRS})
-include_directories(elib)
+include_directories(${CMAKE_CURRENT_LIST_DIR})
+include_directories(libs/elib)
 
-add_executable(test_any any_test.cpp)
-target_link_libraries(test_any ${Boost_LIBRARIES})
+add_definitions(-DELIB_FILESYSTEM_UNIT_TEST_PATH="${CMAKE_CURRENT_LIST_DIR}/unit_tests")
 
-add_custom_command(TARGET test_any POST_BUILD COMMAND test_any)
+add_library(ObjLib OBJECT 
+                    src/filesystem/v2/directory_iterator.cpp
+                    src/filesystem/v2/operations.cpp
+                    src/filesystem/v2/path.cpp)
+
+add_executable(test_filesystem 
+                    $<TARGET_OBJECTS:ObjLib> 
+                    unit_tests/test_main.cpp
+                    unit_tests/directory_entry_test.cpp 
+                    unit_tests/file_status_test.cpp)
+
+target_link_libraries(test_filesystem ${Boost_LIBRARIES})
+
+add_custom_command(TARGET test_filesystem POST_BUILD COMMAND test_filesystem)
